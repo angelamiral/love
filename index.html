@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Computer - 💻</title>
+    <style>
+        :root {
+            --bg-color: #f3e9dc; 
+            --window-bg: #ffffff;
+            --accent-pink: #ff6b8b;
+            --text-dark: #4a4a4a;
+            --border-ui: #dcd6cd;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+  background-image: url("pixel-cat.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+        .desktop {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 90px);
+            grid-template-rows: repeat(auto-fill, 100px);
+            gap: 20px;
+            padding: 25px;
+            height: calc(100vh - 45px);
+            align-content: flex-start;
+        }
+
+        .desktop-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 8px;
+            transition: background 0.2s;
+        }
+
+        .desktop-icon:hover {
+            background: rgba(255, 107, 139, 0.15);
+        }
+
+        .icon-visual {
+            font-size: 2.5rem;
+            margin-bottom: 6px;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.06));
+        }
+
+        .icon-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+    .window{
+    position:absolute;
+    top:80px;
+    left:120px;
+
+    width:520px;
+
+    background:#c0c0c0;
+
+    border-top:2px solid white;
+    border-left:2px solid white;
+    border-right:2px solid #404040;
+    border-bottom:2px solid #404040;
+
+    box-shadow:3px 3px black;
+
+    display:none;
+    flex-direction:column;
+
+    border-radius:0;
+
+    overflow:hidden;
+
+    z-index:10;
+}
+
+        .window-header {
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    font-weight: bold;
+    cursor: move;
+}
+
+        .window-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-dot{
+
+width:18px;
+height:18px;
+
+background:#c0c0c0;
+
+color:black;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:bold;
+
+font-size:12px;
+
+border-top:2px solid white;
+border-left:2px solid white;
+border-right:2px solid #404040;
+border-bottom:2px solid #404040;
+
+cursor:pointer;
+
+}
+
+.control-dot::after{
+
+content:"X";
+
+}
+
+    .window-body{
+
+background:white;
+
+padding:15px;
+
+height:320px;
+
+overflow:auto;
+
+}
+
+        #letter-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            min-height: 150px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-ui);
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+        }
+
+       .mobile-unlock-box {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(255, 107, 139, 0.08); /* Transparent version of your accent pink */
+    border: 2px dashed #333;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+        .mobile-unlock-box button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.3);
+        }
+
+        .taskbar{
+
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+
+height:40px;
+
+background:#c0c0c0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:4px;
+
+border-top:2px solid white;
+
+font-family:"MS Sans Serif",Tahoma,sans-serif;
+
+}
+
+.start-btn{
+
+padding:4px 12px;
+
+font-weight:bold;
+
+background:#c0c0c0;
+
+border-top:2px solid white;
+border-left:2px solid white;
+border-right:2px solid #404040;
+border-bottom:2px solid #404040;
+
+cursor:pointer;
+
+}
+
+.taskbar-title{
+
+font-weight:bold;
+
+font-size:14px;
+
+}
+
+.taskbar-time{
+
+padding:4px 10px;
+
+border:2px inset #c0c0c0;
+
+}
+    
+    #boot-screen{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    background:#fff url("cate-bg.png") center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+
+.boot-box{
+    position:relative;
+    width:340px;
+    background:#fff;
+    border:4px solid #000;
+    padding:70px 20px 25px;
+    text-align:center;
+}
+    
+.boot-cat{
+    position:absolute;
+    width:230px;
+    top:-165px;
+    left:50%;
+    transform:translateX(-50%);
+    pointer-events:none;
+}
+
+.loading-bar{
+    width:200px;
+    height:20px;
+    border:1px solid black;
+    background:white;
+    margin:10px auto;
+    overflow:hidden;
+}
+
+.loading-fill{
+    height:100%;
+    background:#000;
+    animation:bootLoad 3s linear forwards;
+}
+
+@keyframes bootLoad{
+    from{width:0%;}
+    to{width:100%;}
+}
+   .desktop-icon img {
+  width: 70px;
+  height: 70px;
+}
+    .error-popup {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: "Courier New", monospace;
+    box-shadow: 3px 3px 0 black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#custom-pass {
+    position: relative;
+}
+.error-popup.show {
+    opacity: 1;
+}
+    @keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+    /* FORCE classic Windows vertical icon layout */
+.desktop {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 24px !important;
+    padding: 25px !important;
+}
+    
+    /* FORCE System Lock title bar to black */
+#win-lock .title-bar {
+    background-color: black !important;
+    color: white !important;
+}
+    #win-lock > div:first-child {
+    background-color: black !important;
+    color: white !important;
+}
+    </style>
+</head>
+<body>
+<div id="boot-screen">
+    <div class="boot-box">
+        <h2>LOADING MEMORIES</h2>
+        <p>Please wait.....</p>
+
+        <div class="loading-bar">
+            <div class="loading-fill"></div>
+        </div>
+    </div>
+</div>
+    <div class="desktop">
+        <div class="desktop-icon" onclick="openWindow('win-lock')">
+            <div class="icon-visual">
+    <img src="message-love.png" class="desktop-icon-img">
+</div>
+            <div class="icon-label">Read Me First</div>
+        </div>
+       <div class="desktop-icon" onclick="openWindow('win-gallery')">
+           <div class="icon-visual">
+    <img src="memories-love.png" class="desktop-icon-img">
+</div>
+            <div class="icon-label">My favorite photos</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('win-music')">
+             <div class="icon-visual">
+    <img src="music-love.png" class="desktop-icon-img">
+</div>
+            <div class="icon-label">Our Song</div>
+        </div>
+<div class="desktop-icon" onclick="openWindow('win-recycle')">
+     <div class="icon-visual">
+    <img src="trash-bin.png" class="desktop-icon-img">
+</div>
+    <div class="icon-label">Recycle Bin</div>
+</div>
+    </div>
+  
+
+    <div id="win-lock" class="window">
+        <div class="window-header">
+            <span class="window-title">System Lock</span>
+            <div class="window-controls">
+                <span class="control-dot dot-close" onclick="closeWindow('win-lock')"></span>
+            </div>
+        </div>
+        
+        <div class="window-body">
+            <div class="mobile-unlock-box" id="auth-box">
+                <div id="custom-pass" class="mobile-unlock-box" style="display:none;">
+                    <div id="error-popup" class="error-popup">
+    ❌ Wrong password…<br>
+    You don’t know the password? 🤨
+</div>
+    <p style="margin-bottom:12px;">Enter our special date 💗 (MMDD)</p>
+    <input id="pass-input" type="text" maxlength="4"
+        style="
+        padding:10px;
+        width:120px;
+        text-align:center;
+        border-radius:6px;
+        border:1px solid #ff6b8b;
+        font-size:1rem;
+        ">
+
+    <div style="margin-top:15px;">
+        <button onclick="checkPass()">OK</button>
+    </div>
+</div>
+                <p style="margin-bottom: 20px; font-weight: 500; font-size: 1rem;">This message is encrypted.</p>
+                <button onclick="askForMobilePasskey()">Tap to Enter Password</button>
+            </div>
+            <div id="letter-area" style="display:none;">
+    <div id="letter-text"></div>
+</div>
+        
+          
+    
+        </div>
+    </div>
+
+<div id="win-gallery" class="window">
+        <div class="window-header">
+            <span class="window-title">C:\Users\Us\Photos</span>
+            <div class="window-controls">
+                <span class="control-dot dot-close" onclick="closeWindow('win-gallery')"></span>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="gallery-grid">
+                <img class="gallery-item" src="love-1.jpg" alt="Favorite 1">
+                <img class="gallery-item" src="love-2.jpg" alt="Favorite 2">
+                <img class="gallery-item" src="love-3.jpg" alt="Favorite 3">
+                <img class="gallery-item" src="love-4.jpg" alt="Favorite 4">
+            </div>
+        </div>
+    </div>
+
+   <div id="win-music" class="window">
+    <div class="window-header">
+        <span class="window-title">Windows Media Player</span>
+        <div class="window-controls">
+            <span class="control-dot" onclick="closeWindow('win-music')"></span>
+        </div>
+    </div>
+
+    <div class="window-body" style="text-align:center;">
+
+        <h2>🎧 your favorite</h2>
+
+        <p style="margin:10px 0;">
+            Now Playing...
+        </p>
+
+        <div style="
+            width:90px;
+            height:90px;
+            margin:15px auto;
+            border-radius:50%;
+            background:#d9d9d9;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:40px;
+        ">
+            💿
+        </div>
+
+        <audio id="player" controls loop style="width:100%;"> 
+            <source src="song.mp3" type="audio/mpeg">
+        </audio>
+
+    </div>
+</div>
+
+<div id="win-recycle" class="window">
+    <div class="window-header">
+        <span class="window-title">Recycle Bin</span>
+        <div class="window-controls">
+            <span class="control-dot dot-close" onclick="closeWindow('win-recycle')"></span>
+        </div>
+    </div>
+
+    <div class="window-body" style="text-align:center;">
+        <h2>🗑️</h2>
+        <p>I could never throw away our memories. ❤️</p>
+    </div>
+</div>
+
+   <div class="taskbar">
+
+    <button class="start-btn">
+        💚 Start
+    </button>
+
+    <div class="taskbar-title">
+       Weird love bar
+    </div>
+
+    <div class="taskbar-time" id="live-clock"></div>
+
+</div>
+
+    <script>
+        const secretNote = "Hi love… I just wanted to say that I love you.Even on quiet days. Even when words feel heavy.I’m always thinking of you. These past few days are heavy, we have been busy and tired but I just want you to know that I'm always here! sorry if these took a while  I really tried my best haha and I love you so much I won't leave you even on the days that we are both tired! I miss you so much!";
+
+        let isTypingStarted = false;
+const wrongMessages = [
+    "❌ Wrong password weirdo!",
+    "🤨 You don’t know the password?",
+    "🙄 Try again, love.",
+    "😅 Nope… that’s not it.",
+    "💔 Access denied!",
+    "😏 You sure you remember our date?",
+    "🚫 Incorrect key detected.",
+    "😭 That’s not the one!"
+];
+ 
+let windowOffset = 0;
+
+function openWindow(id) {
+    const win = document.getElementById(id);
+
+    win.style.display = "flex";
+    win.style.left = (80 + windowOffset) + "px";
+    win.style.top = (60 + windowOffset) + "px";
+
+    windowOffset += 25;
+    if (windowOffset > 150) windowOffset = 0;
+
+    bringToFront(win);
+}
+function closeWindow(id){
+ document.getElementById(id).style.display="none";
+ if(id==="win-music"){const p=document.getElementById("player");p.pause();p.currentTime=0;}
+}
+let highestZ=20;
+function bringToFront(win){win.style.zIndex=++highestZ;}
+function updateClock(){const n=new Date();let h=n.getHours();const m=String(n.getMinutes()).padStart(2,'0');const a=h>=12?'PM':'AM';h=h%12||12;live=document.getElementById('live-clock');if(live)live.innerText=`${h}:${m} ${a}`;}
+setInterval(updateClock,1000);updateClock();
+function askForMobilePasskey(){document.getElementById("custom-pass").style.display="block";}
+function checkPass(){
+ const input=document.getElementById("pass-input").value.trim();
+ if(input==="0504"){
+   document.getElementById("auth-box").style.display="none";
+   document.getElementById("letter-area").style.display="block";
+   startTypewriter();
+ }else{
+   const box=document.getElementById("custom-pass"),popup=document.getElementById("error-popup");
+   popup.innerHTML=wrongMessages[Math.floor(Math.random()*wrongMessages.length)];
+   box.classList.remove("shake");void box.offsetWidth;box.classList.add("shake");
+   popup.classList.add("show");setTimeout(()=>popup.classList.remove("show"),2000);
+   document.getElementById("pass-input").value="";
+ }
+}
+function startTypewriter(){
+ if(isTypingStarted)return;
+ isTypingStarted=true;
+ let i=0,el=document.getElementById("letter-text");el.innerHTML="";
+ (function t(){if(i<secretNote.length){el.innerHTML+=secretNote.charAt(i++);setTimeout(t,35);}})();
+}
+document.querySelectorAll(".window").forEach(win=>{
+
+    const header = win.querySelector(".window-header");
+
+    let isDragging=false;
+
+    let offsetX=0;
+
+    let offsetY=0;
+
+    header.addEventListener("mousedown",e=>{
+
+        isDragging=true;
+
+        bringToFront(win);
+
+        offsetX=e.clientX-win.offsetLeft;
+
+        offsetY=e.clientY-win.offsetTop;
+
+    });
+
+    document.addEventListener("mousemove",e=>{
+
+        if(!isDragging) return;
+
+        win.style.left=(e.clientX-offsetX)+"px";
+
+        win.style.top=(e.clientY-offsetY)+"px";
+
+        win.style.transform="none";
+
+    });
+
+    document.addEventListener("mouseup",()=>{
+
+        isDragging=false;
+
+    });
+
+});
+    window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document.getElementById("boot-screen").style.display="none";
+        const pl=document.getElementById("player"); if(pl){pl.play().catch(()=>{});}
+
+    },3000);
+
+});
+
+    </script>
+</body>
+</html>
